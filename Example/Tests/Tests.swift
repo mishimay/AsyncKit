@@ -4,44 +4,65 @@ import Quick
 import Nimble
 import AsyncKit
 
-class TableOfContentsSpec: QuickSpec {
+class AsySpec: QuickSpec {
     override func spec() {
-        describe("these will fail") {
+        let async = AsyncKit<String, NSError>()
 
-            it("can do maths") {
-                expect(1) == 2
-            }
-
-            it("can read") {
-                expect("number") == "string"
-            }
-
-            it("will eventually fail") {
-                expect("time").toEventually( equal("done") )
-            }
-            
-            context("these will pass") {
-
-                it("can do maths") {
-                    expect(23) == 23
-                }
-
-                it("can read") {
-                    expect("🐮") == "🐮"
-                }
-
-                it("will eventually pass") {
-                    var time = "passing"
-
-                    dispatch_async(dispatch_get_main_queue()) {
-                        time = "done"
+        describe("parallel") {
+            it("can be done") {
+                waitUntil { done in
+                    async.parallel(
+                        [
+                            { done in done(.Success("1")) },
+                            { done in done(.Success("2")) }
+                        ]) { result in
+                            switch result {
+                            case .Success(let objects):
+                                expect(objects) == ["1", "2"]
+                                done()
+                            case .Failure(_):
+                                fail()
+                            }
                     }
+                }
+            }
+        }
 
-                    waitUntil { done in
-                        NSThread.sleepForTimeInterval(0.5)
-                        expect(time) == "done"
+        describe("series") {
+            it("can be done") {
+                waitUntil { done in
+                    async.series(
+                        [
+                            { done in done(.Success("1")) },
+                            { done in done(.Success("2")) }
+                        ]) { result in
+                            switch result {
+                            case .Success(let objects):
+                                expect(objects) == ["1", "2"]
+                                done()
+                            case .Failure(_):
+                                fail()
+                            }
+                    }
+                }
+            }
+        }
 
-                        done()
+        describe("waterfall") {
+            it("can be done") {
+                waitUntil { done in
+                    async.waterfall(
+                        [
+                            { arguments, done in done(.Success(["1"])) },
+                            { arguments, done in done(.Success(arguments + ["2"])) }
+                        ]) { result in
+                            switch result {
+                            case .Success(let objects):
+                                expect(objects) == ["1", "2"]
+                                done()
+                            case .Failure(_):
+                                fail()
+                            }
                     }
                 }
             }
