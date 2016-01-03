@@ -37,12 +37,15 @@ async.waterfall(
 1. Instantiate AsyncKit
   - You need to specify success object type and failure object type.
   - e.g.
+
     ```swift
     let async = AsyncKit<String, NSError>()
     ```
+
 1. Prepare process closures
   - In the closure, call completion closure with success object or failure object.
   - e.g.
+
     ```swift
     let process: AsyncKit<String, NSError>.AsyncProcess = { done in
         request() { object, error in
@@ -54,8 +57,10 @@ async.waterfall(
         }
     }
     ```
+
 1. Pass the process closures to the AsyncKit function and receive callback closure
   - e.g.
+
     ```swift
     async.parallel([process1, process2]) { result in
         switch result {
