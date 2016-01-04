@@ -6,21 +6,15 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		4D3EF5C81C39F9DD00297E92 /* AsyncKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D3EF5C51C39F9DD00297E92 /* AsyncKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D3EF5C91C39F9DD00297E92 /* AsyncKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3EF5C61C39F9DD00297E92 /* AsyncKit.swift */; };
-		4D3EF5CA1C39F9DD00297E92 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D3EF5C71C39F9DD00297E92 /* Info.plist */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		4D3EF5B91C39F96B00297E92 /* AsyncKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AsyncKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D3EF5C51C39F9DD00297E92 /* AsyncKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncKit.h; path = Pod/Classes/AsyncKit.h; sourceTree = "<group>"; };
 		4D3EF5C61C39F9DD00297E92 /* AsyncKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AsyncKit.swift; path = Pod/Classes/AsyncKit.swift; sourceTree = "<group>"; };
 		4D3EF5C71C39F9DD00297E92 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Pod/Classes/Info.plist; sourceTree = "<group>"; };
+		6CF603161C3AB5DC00086D86 /* AsyncKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AsyncKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4D3EF5B51C39F96B00297E92 /* Frameworks */ = {
+		6CF603121C3AB5DC00086D86 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -41,7 +35,7 @@
 		4D3EF5BA1C39F96B00297E92 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4D3EF5B91C39F96B00297E92 /* AsyncKit.framework */,
+				6CF603161C3AB5DC00086D86 /* AsyncKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -59,25 +53,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		4D3EF5B61C39F96B00297E92 /* Headers */ = {
+		6CF603131C3AB5DC00086D86 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D3EF5C81C39F9DD00297E92 /* AsyncKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4D3EF5B81C39F96B00297E92 /* AsyncKit */ = {
+		6CF603151C3AB5DC00086D86 /* AsyncKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4D3EF5C11C39F96B00297E92 /* Build configuration list for PBXNativeTarget "AsyncKit" */;
+			buildConfigurationList = 6CF6031B1C3AB5DC00086D86 /* Build configuration list for PBXNativeTarget "AsyncKit" */;
 			buildPhases = (
-				4D3EF5B41C39F96B00297E92 /* Sources */,
-				4D3EF5B51C39F96B00297E92 /* Frameworks */,
-				4D3EF5B61C39F96B00297E92 /* Headers */,
-				4D3EF5B71C39F96B00297E92 /* Resources */,
+				6CF603111C3AB5DC00086D86 /* Sources */,
+				6CF603121C3AB5DC00086D86 /* Frameworks */,
+				6CF603131C3AB5DC00086D86 /* Headers */,
+				6CF603141C3AB5DC00086D86 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -85,7 +78,7 @@
 			);
 			name = AsyncKit;
 			productName = AsyncKit;
-			productReference = 4D3EF5B91C39F96B00297E92 /* AsyncKit.framework */;
+			productReference = 6CF603161C3AB5DC00086D86 /* AsyncKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -96,7 +89,7 @@
 			attributes = {
 				LastUpgradeCheck = 0720;
 				TargetAttributes = {
-					4D3EF5B81C39F96B00297E92 = {
+					6CF603151C3AB5DC00086D86 = {
 						CreatedOnToolsVersion = 7.2;
 					};
 				};
@@ -113,28 +106,26 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4D3EF5B81C39F96B00297E92 /* AsyncKit */,
+				6CF603151C3AB5DC00086D86 /* AsyncKit */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4D3EF5B71C39F96B00297E92 /* Resources */ = {
+		6CF603141C3AB5DC00086D86 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D3EF5CA1C39F9DD00297E92 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4D3EF5B41C39F96B00297E92 /* Sources */ = {
+		6CF603111C3AB5DC00086D86 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D3EF5C91C39F9DD00297E92 /* AsyncKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,10 +221,9 @@
 			};
 			name = Release;
 		};
-		4D3EF5C21C39F96B00297E92 /* Debug */ = {
+		6CF6031C1C3AB5DC00086D86 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -245,14 +235,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.mishimay.AsyncKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		4D3EF5C31C39F96B00297E92 /* Release */ = {
+		6CF6031D1C3AB5DC00086D86 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -279,14 +267,13 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4D3EF5C11C39F96B00297E92 /* Build configuration list for PBXNativeTarget "AsyncKit" */ = {
+		6CF6031B1C3AB5DC00086D86 /* Build configuration list for PBXNativeTarget "AsyncKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4D3EF5C21C39F96B00297E92 /* Debug */,
-				4D3EF5C31C39F96B00297E92 /* Release */,
+				6CF6031C1C3AB5DC00086D86 /* Debug */,
+				6CF6031D1C3AB5DC00086D86 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
