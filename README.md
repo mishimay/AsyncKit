@@ -74,13 +74,29 @@ async.waterfall(
 
 ## Installation
 
-AsyncKit is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following lines to your Podfile:
+### CocoaPods
+- AsyncKit is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following lines to your *Podfile*:
 
 ```ruby
 use_frameworks!
 pod "AsyncKit"
 ```
+
+- Run `pod install`
+
+### Carthage
+
+- Add the following to your *Cartfile*:
+
+```bash
+github "mishimay/AsyncKit"
+```
+
+- Run `carthage update`
+- Add the framework as described.
+<br> See more Details: [Carthage Readme](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)
+
 
 ## Author
 
