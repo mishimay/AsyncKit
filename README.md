@@ -23,6 +23,15 @@ async.series(
         print(result) // -> Success(["1", "2"])
 }
 
+var count = 0
+async.whilst({ return count < 3 },
+    process: { done in
+        count += 1
+        done(.Success(String(count)))
+    }) { result in
+        print(result) // -> Success(["1", "2", "3"])
+}
+
 async.waterfall(
     [
         { arguments, done in done(.Success(["1"])) },

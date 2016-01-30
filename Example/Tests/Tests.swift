@@ -48,6 +48,27 @@ class AsySpec: QuickSpec {
             }
         }
 
+        describe("whilst") {
+            it("can be done") {
+                waitUntil { done in
+                    var count = 0
+                    async.whilst({ return count < 3 },
+                        process: { done in
+                            count += 1
+                            done(.Success(String(count)))
+                        }) { result in
+                            switch result {
+                            case .Success(let objects):
+                                expect(objects) == ["1", "2", "3"]
+                                done()
+                            case .Failure(_):
+                                fail()
+                            }
+                    }
+                }
+            }
+        }
+
         describe("waterfall") {
             it("can be done") {
                 waitUntil { done in

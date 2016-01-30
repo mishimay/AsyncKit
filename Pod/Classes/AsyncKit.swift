@@ -61,6 +61,29 @@ public struct AsyncKit<T, U> {
         execute(0)
     }
 
+    public func whilst(test: () -> Bool, process: Process, completion: Result<[T], U> -> ()) {
+        var successObjects = [T]()
+
+        func execute() {
+            guard test() else {
+                completion(.Success(successObjects))
+                return
+            }
+
+            process { result in
+                switch result {
+                case .Success(let object):
+                    successObjects.append(object)
+                    execute()
+                case .Failure(let object):
+                    completion(.Failure(object))
+                }
+            }
+        }
+
+        execute()
+    }
+
     public func waterfall(processes: [ProcessWithArguments], completion: Result<[T], U> -> ()) {
         func execute(arguments: [T], index: Int) {
             guard 0..<processes.count ~= index else {
