@@ -41,19 +41,20 @@ public struct AsyncKit<T, U> {
         var successObjects = [T]()
 
         func execute(index: Int) {
-            if 0..<processes.count ~= index {
-                let process = processes[index]
-                process { result in
-                    switch result {
-                    case .Success(let object):
-                        successObjects.append(object)
-                        execute(index + 1)
-                    case .Failure(let object):
-                        completion(.Failure(object))
-                    }
-                }
-            } else {
+            guard 0..<processes.count ~= index else {
                 completion(.Success(successObjects))
+                return
+            }
+
+            let process = processes[index]
+            process { result in
+                switch result {
+                case .Success(let object):
+                    successObjects.append(object)
+                    execute(index + 1)
+                case .Failure(let object):
+                    completion(.Failure(object))
+                }
             }
         }
 
@@ -62,18 +63,19 @@ public struct AsyncKit<T, U> {
 
     public func waterfall(processes: [ProcessWithArguments], completion: Result<[T], U> -> ()) {
         func execute(arguments: [T], index: Int) {
-            if 0..<processes.count ~= index {
-                let process = processes[index]
-                process(arguments: arguments) { result in
-                    switch result {
-                    case .Success(let objects):
-                        execute(objects, index: index + 1)
-                    case .Failure(let object):
-                        completion(.Failure(object))
-                    }
-                }
-            } else {
+            guard 0..<processes.count ~= index else {
                 completion(.Success(arguments))
+                return
+            }
+
+            let process = processes[index]
+            process(arguments: arguments) { result in
+                switch result {
+                case .Success(let objects):
+                    execute(objects, index: index + 1)
+                case .Failure(let object):
+                    completion(.Failure(object))
+                }
             }
         }
 
