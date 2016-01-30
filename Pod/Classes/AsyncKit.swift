@@ -5,20 +5,20 @@ public enum Result<T, U> {
 
 public struct AsyncKit<T, U> {
 
-    public typealias AsyncProcess = (Result<T, U> -> ()) -> ()
-    public typealias AsyncProcessWithArguments = (arguments: [T], Result<[T], U> -> ()) -> ()
+    public typealias Process = (Result<T, U> -> ()) -> ()
+    public typealias ProcessWithArguments = (arguments: [T], Result<[T], U> -> ()) -> ()
 
     public init() {
     }
 
-    public func parallel(acyncProcesses: [AsyncProcess], completion: Result<[T], U> -> ()) {
+    public func parallel(processes: [Process], completion: Result<[T], U> -> ()) {
         var hasFailed = false
-        var successObjects = [T?](count: acyncProcesses.count, repeatedValue: nil)
+        var successObjects = [T?](count: processes.count, repeatedValue: nil)
 
         let group = dispatch_group_create()
-        for (index, acyncProcess) in acyncProcesses.enumerate() {
+        for (index, process) in processes.enumerate() {
             dispatch_group_enter(group)
-            acyncProcess { result in
+            process { result in
                 switch result {
                 case .Success(let object):
                     successObjects[index] = object
@@ -37,13 +37,13 @@ public struct AsyncKit<T, U> {
         }
     }
 
-    public func series(acyncProcesses: [AsyncProcess], completion: Result<[T], U> -> ()) {
+    public func series(processes: [Process], completion: Result<[T], U> -> ()) {
         var successObjects = [T]()
 
         func execute(index: Int) {
-            if 0..<acyncProcesses.count ~= index {
-                let acyncProcess = acyncProcesses[index]
-                acyncProcess { result in
+            if 0..<processes.count ~= index {
+                let process = processes[index]
+                process { result in
                     switch result {
                     case .Success(let object):
                         successObjects.append(object)
@@ -60,11 +60,11 @@ public struct AsyncKit<T, U> {
         execute(0)
     }
 
-    public func waterfall(acyncProcesses: [AsyncProcessWithArguments], completion: Result<[T], U> -> ()) {
+    public func waterfall(processes: [ProcessWithArguments], completion: Result<[T], U> -> ()) {
         func execute(arguments: [T], index: Int) {
-            if 0..<acyncProcesses.count ~= index {
-                let acyncProcess = acyncProcesses[index]
-                acyncProcess(arguments: arguments) { result in
+            if 0..<processes.count ~= index {
+                let process = processes[index]
+                process(arguments: arguments) { result in
                     switch result {
                     case .Success(let objects):
                         execute(objects, index: index + 1)
