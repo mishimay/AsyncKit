@@ -6,6 +6,11 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4DA0F8CA1C8091E8002A8C23 /* AsyncKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D3EF5C51C39F9DD00297E92 /* AsyncKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DA0F8CB1C8091EE002A8C23 /* AsyncKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3EF5C61C39F9DD00297E92 /* AsyncKit.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		4D3EF5C51C39F9DD00297E92 /* AsyncKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncKit.h; path = Pod/Classes/AsyncKit.h; sourceTree = "<group>"; };
 		4D3EF5C61C39F9DD00297E92 /* AsyncKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AsyncKit.swift; path = Pod/Classes/AsyncKit.swift; sourceTree = "<group>"; };
@@ -57,6 +62,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DA0F8CA1C8091E8002A8C23 /* AsyncKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +132,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DA0F8CB1C8091EE002A8C23 /* AsyncKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
