@@ -2,6 +2,11 @@
 
 Utilities for asynchronous code inspired by JavaScript module [async](https://github.com/caolan/async).
 
+It's
+- written in Swift
+- generic
+- less code
+
 ## Quick Example
 
 ```swift
@@ -9,35 +14,39 @@ let async = AsyncKit<String, NSError>()
 
 async.parallel(
     [
-        { done in done(.Success("1")) },
-        { done in done(.Success("2")) }
+        { done in done(.Success("one")) },
+        { done in done(.Success("two")) }
     ]) { result in
-        print(result) // -> Success(["1", "2"])
+        print(result) // -> Success(["one", "two"])
+        // the success array will equal ["one", "two"] even though
+        // the second closure had a shorter timeout.
 }
 
 async.series(
     [
-        { done in done(.Success("1")) },
-        { done in done(.Success("2")) }
+        { done in done(.Success("one")) },
+        { done in done(.Success("two")) }
     ]) { result in
-        print(result) // -> Success(["1", "2"])
+        print(result) // -> Success(["one", "two"])
 }
 
 var count = 0
 async.whilst({ return count < 3 },
-    process: { done in
+    { done in
         count += 1
         done(.Success(String(count)))
     }) { result in
-        print(result) // -> Success(["1", "2", "3"])
+        print(result) // -> Success(Optional("three"))
 }
 
-async.waterfall(
+async.waterfall("one",
     [
-        { arguments, done in done(.Success(["1"])) },
-        { arguments, done in done(.Success(arguments + ["2"])) }
+        // argument is "one"
+        { argument, done in done(.Success("two")) },
+        // argument is "two"
+        { argument, done in done(.Success("three")) }
     ]) { result in
-        print(result) // -> Success(["1", "2"])
+        print(result) // -> Success("three")
 }
 ```
 
@@ -56,7 +65,7 @@ async.waterfall(
   - e.g.
 
     ```swift
-    let process: AsyncKit<String, NSError>.AsyncProcess = { done in
+    let process: AsyncKit<String, NSError>.Process = { done in
         request() { object, error in
             if error == nil {
                 done(.Success(object))
@@ -67,7 +76,7 @@ async.waterfall(
     }
     ```
 
-1. Pass the process closures to the AsyncKit function and receive callback closure
+1. Pass the process closures to the AsyncKit function and receive result
   - e.g.
 
     ```swift
@@ -109,7 +118,7 @@ github "mishimay/AsyncKit"
 
 ## Author
 
-Yuki Mishima, atehamare@gmail.com
+Yuki Mishima, mishimaybe@gmail.com
 
 ## License
 

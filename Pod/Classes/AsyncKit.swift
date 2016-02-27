@@ -6,7 +6,7 @@ public enum Result<T, U> {
 public struct AsyncKit<T, U> {
 
     public typealias Process = (Result<T, U> -> ()) -> ()
-    public typealias ProcessWithArguments = (arguments: [T], Result<[T], U> -> ()) -> ()
+    public typealias ProcessWithArgument = (argument: T, Result<T, U> -> ()) -> ()
 
     public init() {
     }
@@ -61,19 +61,19 @@ public struct AsyncKit<T, U> {
         execute(0)
     }
 
-    public func whilst(test: () -> Bool, process: Process, completion: Result<[T], U> -> ()) {
-        var successObjects = [T]()
+    public func whilst(test: () -> Bool, _ process: Process, completion: Result<T?, U> -> ()) {
+        var successObject: T? = nil
 
         func execute() {
             guard test() else {
-                completion(.Success(successObjects))
+                completion(.Success(successObject))
                 return
             }
 
             process { result in
                 switch result {
                 case .Success(let object):
-                    successObjects.append(object)
+                    successObject = object
                     execute()
                 case .Failure(let object):
                     completion(.Failure(object))
@@ -84,25 +84,25 @@ public struct AsyncKit<T, U> {
         execute()
     }
 
-    public func waterfall(processes: [ProcessWithArguments], completion: Result<[T], U> -> ()) {
-        func execute(arguments: [T], index: Int) {
+    public func waterfall(argument: T, _ processes: [ProcessWithArgument], completion: Result<T, U> -> ()) {
+        func execute(argument: T, index: Int) {
             guard 0..<processes.count ~= index else {
-                completion(.Success(arguments))
+                completion(.Success(argument))
                 return
             }
 
             let process = processes[index]
-            process(arguments: arguments) { result in
+            process(argument: argument) { result in
                 switch result {
-                case .Success(let objects):
-                    execute(objects, index: index + 1)
+                case .Success(let object):
+                    execute(object, index: index + 1)
                 case .Failure(let object):
                     completion(.Failure(object))
                 }
             }
         }
 
-        execute([], index: 0)
+        execute(argument, index: 0)
     }
 
 }
