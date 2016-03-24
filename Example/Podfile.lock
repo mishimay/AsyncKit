@@ -1,20 +1,20 @@
 PODS:
-  - AsyncKit (0.1.0)
-  - Nimble (3.0.0)
-  - Quick (0.8.0)
+  - AsyncKit (1.2)
+  - Nimble (3.2.0)
+  - Quick (0.9.1)
 
 DEPENDENCIES:
   - AsyncKit (from `../`)
-  - Nimble (= 3.0.0)
-  - Quick (~> 0.8.0)
+  - Nimble (~> 3.0)
+  - Quick (~> 0.9)
 
 EXTERNAL SOURCES:
   AsyncKit:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  AsyncKit: 938876e305a7ea1b8128bfd2b23b7a0f04010683
-  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
-  Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
+  AsyncKit: d82f95a1d48dd4b36ec2a857b1cf38f12dd48c99
+  Nimble: 703854335d181df169bbca9c97117b5cf8c47c1d
+  Quick: a5221fc21788b6aeda934805e68b061839bc3165
 
 COCOAPODS: 0.39.0
