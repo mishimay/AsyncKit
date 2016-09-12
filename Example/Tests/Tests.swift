@@ -13,14 +13,14 @@ class AsySpec: QuickSpec {
                 waitUntil { done in
                     async.parallel(
                         [
-                            { done in done(.Success("1")) },
-                            { done in done(.Success("2")) }
+                            { done in done(.success("1")) },
+                            { done in done(.success("2")) }
                         ]) { result in
                             switch result {
-                            case .Success(let objects):
+                            case .success(let objects):
                                 expect(objects) == ["1", "2"]
                                 done()
-                            case .Failure(_):
+                            case .failure(_):
                                 fail()
                             }
                     }
@@ -33,14 +33,14 @@ class AsySpec: QuickSpec {
                 waitUntil { done in
                     async.series(
                         [
-                            { done in done(.Success("1")) },
-                            { done in done(.Success("2")) }
+                            { done in done(.success("1")) },
+                            { done in done(.success("2")) }
                         ]) { result in
                             switch result {
-                            case .Success(let objects):
+                            case .success(let objects):
                                 expect(objects) == ["1", "2"]
                                 done()
-                            case .Failure(_):
+                            case .failure(_):
                                 fail()
                             }
                     }
@@ -55,13 +55,13 @@ class AsySpec: QuickSpec {
                     async.whilst({ return count < 3 },
                         { done in
                             count += 1
-                            done(.Success(String(count)))
+                            done(.success(String(count)))
                         }) { result in
                             switch result {
-                            case .Success(let object):
+                            case .success(let object):
                                 expect(object) == "3"
                                 done()
-                            case .Failure(_):
+                            case .failure(_):
                                 fail()
                             }
                     }
@@ -76,18 +76,18 @@ class AsySpec: QuickSpec {
                         [
                             { argument, done in
                                 expect(argument) == "0"
-                                done(.Success("1"))
+                                done(.success("1"))
                             },
                             { argument, done in
                                 expect(argument) == "1"
-                                done(.Success("2"))
+                                done(.success("2"))
                             }
                         ]) { result in
                             switch result {
-                            case .Success(let objects):
+                            case .success(let objects):
                                 expect(objects) == "2"
                                 done()
-                            case .Failure(_):
+                            case .failure(_):
                                 fail()
                             }
                     }

@@ -14,39 +14,39 @@ let async = AsyncKit<String, NSError>()
 
 async.parallel(
     [
-        { done in done(.Success("one")) },
-        { done in done(.Success("two")) }
+        { done in done(.success("one")) },
+        { done in done(.success("two")) }
     ]) { result in
-        print(result) // -> Success(["one", "two"])
+        print(result) // -> success(["one", "two"])
         // the success array will equal ["one", "two"] even though
         // the second closure had a shorter timeout.
 }
 
 async.series(
     [
-        { done in done(.Success("one")) },
-        { done in done(.Success("two")) }
+        { done in done(.success("one")) },
+        { done in done(.success("two")) }
     ]) { result in
-        print(result) // -> Success(["one", "two"])
+        print(result) // -> success(["one", "two"])
 }
 
 var count = 0
 async.whilst({ return count < 2 },
     { done in
         count += 1
-        done(.Success(String(count)))
+        done(.success(String(count)))
     }) { result in
-        print(result) // -> Success(Optional("2"))
+        print(result) // -> success(Optional("2"))
 }
 
 async.waterfall("one",
     [
         // argument is "one"
-        { argument, done in done(.Success("two")) },
+        { argument, done in done(.success("two")) },
         // argument is "two"
-        { argument, done in done(.Success("three")) }
+        { argument, done in done(.success("three")) }
     ]) { result in
-        print(result) // -> Success("three")
+        print(result) // -> success("three")
 }
 ```
 
@@ -68,9 +68,9 @@ async.waterfall("one",
     let process: AsyncKit<String, NSError>.Process = { done in
         request() { object, error in
             if error == nil {
-                done(.Success(object))
+                done(.success(object))
             } else {
-                done(.Failure(error))
+                done(.failure(error))
             }
         }
     }
@@ -82,9 +82,9 @@ async.waterfall("one",
     ```swift
     async.parallel([process1, process2]) { result in
         switch result {
-        case .Success(let objects):
+        case .success(let objects):
             print(objects)
-        case .Failure(let error):
+        case .failure(let error):
             print(error)
         }
     }
@@ -107,24 +107,24 @@ Run the processes in parallel, without waiting until the previous process has co
 AsyncKit<String, NSError>().parallel([
     { done in
         if arc4random_uniform(4) == 0 {
-            done(.Failure(NSError(domain: "AsyncKit", code: 0, userInfo: nil)))
+            done(.failure(NSError(domain: "AsyncKit", code: 0, userInfo: nil)))
         } else {
-            done(.Success("one"))
+            done(.success("one"))
         }
     }, { done in
         if arc4random_uniform(4) == 0 {
-            done(.Failure(NSError(domain: "AsyncKit", code: 1, userInfo: nil)))
+            done(.failure(NSError(domain: "AsyncKit", code: 1, userInfo: nil)))
         } else {
-            done(.Success("two"))
+            done(.success("two"))
         }
     }
     ]) { result in
         switch result {
-        case .Success(let objects):
-            print(objects) // -> Success(["one", "two"])
+        case .success(let objects):
+            print(objects) // -> success(["one", "two"])
             // the success array will equal ["one", "two"] even though
             // the second closure had a shorter timeout.
-        case .Failure(let error):
+        case .failure(let error):
             print(error)
         }
 }
@@ -147,22 +147,22 @@ Run the processes in series, each one will run once the previous process has com
 AsyncKit<String, NSError>().series([
     { done in
         if arc4random_uniform(4) == 0 {
-            done(.Failure(NSError(domain: "AsyncKit", code: 0, userInfo: nil)))
+            done(.failure(NSError(domain: "AsyncKit", code: 0, userInfo: nil)))
         } else {
-            done(.Success("one"))
+            done(.success("one"))
         }
     }, { done in
         if arc4random_uniform(4) == 0 {
-            done(.Failure(NSError(domain: "AsyncKit", code: 1, userInfo: nil)))
+            done(.failure(NSError(domain: "AsyncKit", code: 1, userInfo: nil)))
         } else {
-            done(.Success("two"))
+            done(.success("two"))
         }
     }
     ]) { result in
         switch result {
-        case .Success(let objects):
-            print(objects) // -> Success(["one", "two"])
-        case .Failure(let error):
+        case .success(let objects):
+            print(objects) // -> success(["one", "two"])
+        case .failure(let error):
             print(error)
         }
 }
@@ -190,15 +190,15 @@ AsyncKit<String, NSError>().whilst({
     { done in
         count += 1
         if arc4random_uniform(4) == 0 {
-            done(.Failure(NSError(domain: "AsyncKit", code: count, userInfo: nil)))
+            done(.failure(NSError(domain: "AsyncKit", code: count, userInfo: nil)))
         } else {
-            done(.Success(String(count)))
+            done(.success(String(count)))
         }
     }) { result in
         switch result {
-        case .Success(let object):
+        case .success(let object):
             print(object) // -> Optional("2")
-        case .Failure(let error):
+        case .failure(let error):
             print(error)
         }
 }
@@ -224,30 +224,35 @@ AsyncKit<String, NSError>().waterfall("one",
         // argument is "one"
         { argument, done in
             if arc4random_uniform(4) == 0 {
-                done(.Failure(NSError(domain: "AsyncKit", code: 0, userInfo: nil)))
+                done(.failure(NSError(domain: "AsyncKit", code: 0, userInfo: nil)))
             } else {
-                done(.Success("two"))
+                done(.success("two"))
             }
         },
         // argument is "two"
         { argument, done in
             if arc4random_uniform(4) == 0 {
-                done(.Failure(NSError(domain: "AsyncKit", code: 1, userInfo: nil)))
+                done(.failure(NSError(domain: "AsyncKit", code: 1, userInfo: nil)))
             } else {
-                done(.Success("three"))
+                done(.success("three"))
             }
         }
     ]) { result in
         switch result {
-        case .Success(let object):
+        case .success(let object):
             print(object)
-        case .Failure(let error):
+        case .failure(let error):
             print(error)
         }
 }
 ```
 
 ***
+
+
+## Requirements
+
+Swift 3.0
 
 
 ## Installation

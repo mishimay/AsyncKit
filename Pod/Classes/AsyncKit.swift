@@ -1,82 +1,82 @@
 public enum Result<T, U> {
-    case Success(T)
-    case Failure(U)
+    case success(T)
+    case failure(U)
 }
 
 public struct AsyncKit<T, U> {
 
-    public typealias Process = (Result<T, U> -> ()) -> ()
-    public typealias ProcessWithArgument = (argument: T, Result<T, U> -> ()) -> ()
+    public typealias Process = ((Result<T, U>) -> ()) -> ()
+    public typealias ProcessWithArgument = (_ argument: T, (Result<T, U>) -> ()) -> ()
 
     public init() {
     }
 
-    public func parallel(processes: [Process], completion: Result<[T], U> -> ()) {
+    public func parallel(_ processes: [Process], completion: @escaping (Result<[T], U>) -> ()) {
         var hasFailed = false
-        var successObjects = [T?](count: processes.count, repeatedValue: nil)
+        var successObjects = [T?](repeating: nil, count: processes.count)
 
-        let group = dispatch_group_create()
-        for (index, process) in processes.enumerate() {
-            dispatch_group_enter(group)
+        let group = DispatchGroup()
+        for (index, process) in processes.enumerated() {
+            group.enter()
             process { result in
                 switch result {
-                case .Success(let object):
+                case .success(let object):
                     successObjects[index] = object
-                    dispatch_group_leave(group)
-                case .Failure(let object):
+                    group.leave()
+                case .failure(let object):
                     if !hasFailed {
                         hasFailed = true
-                        completion(.Failure(object))
+                        completion(.failure(object))
                     }
                 }
             }
         }
 
-        dispatch_group_notify(group, dispatch_get_main_queue()) {
-            completion(.Success(successObjects.flatMap { $0 }))
+        group.notify(queue: .main) {
+            completion(.success(successObjects.flatMap { $0 }))
         }
     }
 
-    public func series(processes: [Process], completion: Result<[T], U> -> ()) {
+    public func series(_ processes: [Process], completion: @escaping (Result<[T], U>) -> ()) {
         var successObjects = [T]()
 
         func execute(index: Int) {
             guard 0..<processes.count ~= index else {
-                completion(.Success(successObjects))
+                completion(.success(successObjects))
                 return
             }
 
             let process = processes[index]
             process { result in
                 switch result {
-                case .Success(let object):
+                case .success(let object):
                     successObjects.append(object)
-                    execute(index + 1)
-                case .Failure(let object):
-                    completion(.Failure(object))
+                    execute(index: index + 1)
+                case .failure(let object):
+                    completion(.failure(object))
                 }
             }
         }
 
-        execute(0)
+        execute(index: 0)
     }
 
-    public func whilst(test: () -> Bool, _ process: Process, completion: Result<T?, U> -> ()) {
+    public func whilst(_ test: @escaping () -> Bool, _ process: @escaping Process, completion: @escaping (Result<T?, U>) -> ()) {
         var successObject: T? = nil
 
         func execute() {
             guard test() else {
-                completion(.Success(successObject))
+                completion(.success(successObject))
                 return
             }
 
             process { result in
                 switch result {
-                case .Success(let object):
+                case .success(let object):
                     successObject = object
                     execute()
-                case .Failure(let object):
-                    completion(.Failure(object))
+                case .failure(let object):
+                    completion(.failure(object))
                 }
             }
         }
@@ -84,25 +84,25 @@ public struct AsyncKit<T, U> {
         execute()
     }
 
-    public func waterfall(argument: T, _ processes: [ProcessWithArgument], completion: Result<T, U> -> ()) {
+    public func waterfall(_ argument: T, _ processes: [ProcessWithArgument], completion: @escaping (Result<T, U>) -> ()) {
         func execute(argument: T, index: Int) {
             guard 0..<processes.count ~= index else {
-                completion(.Success(argument))
+                completion(.success(argument))
                 return
             }
 
             let process = processes[index]
-            process(argument: argument) { result in
+            process(argument) { result in
                 switch result {
-                case .Success(let object):
-                    execute(object, index: index + 1)
-                case .Failure(let object):
-                    completion(.Failure(object))
+                case .success(let object):
+                    execute(argument: object, index: index + 1)
+                case .failure(let object):
+                    completion(.failure(object))
                 }
             }
         }
 
-        execute(argument, index: 0)
+        execute(argument: argument, index: 0)
     }
 
 }
