@@ -14,7 +14,11 @@ class AsySpec: QuickSpec {
                     async.parallel(
                         [
                             { done in done(.success("1")) },
-                            { done in done(.success("2")) }
+                            { done in
+                                DispatchQueue.main.async {
+                                    done(.success("2"))
+                                }
+                            }
                         ]) { result in
                             switch result {
                             case .success(let objects):
@@ -34,7 +38,11 @@ class AsySpec: QuickSpec {
                     async.series(
                         [
                             { done in done(.success("1")) },
-                            { done in done(.success("2")) }
+                            { done in
+                                DispatchQueue.main.async {
+                                    done(.success("2"))
+                                }
+                            }
                         ]) { result in
                             switch result {
                             case .success(let objects):
@@ -55,7 +63,9 @@ class AsySpec: QuickSpec {
                     async.whilst({ return count < 3 },
                         { done in
                             count += 1
-                            done(.success(String(count)))
+                            DispatchQueue.main.async {
+                                done(.success(String(count)))
+                            }
                         }) { result in
                             switch result {
                             case .success(let object):
@@ -80,7 +90,9 @@ class AsySpec: QuickSpec {
                             },
                             { argument, done in
                                 expect(argument) == "1"
-                                done(.success("2"))
+                                DispatchQueue.main.async {
+                                    done(.success("2"))
+                                }
                             }
                         ]) { result in
                             switch result {
