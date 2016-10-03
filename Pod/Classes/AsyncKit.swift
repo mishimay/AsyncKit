@@ -5,8 +5,8 @@ public enum Result<T, U> {
 
 public struct AsyncKit<T, U> {
 
-    public typealias Process = ((Result<T, U>) -> ()) -> ()
-    public typealias ProcessWithArgument = (_ argument: T, (Result<T, U>) -> ()) -> ()
+    public typealias Process = (@escaping (Result<T, U>) -> ()) -> ()
+    public typealias ProcessWithArgument = (_ argument: T, @escaping (Result<T, U>) -> ()) -> ()
 
     public init() {
     }
