@@ -97,6 +97,7 @@
 				TargetAttributes = {
 					6CF603151C3AB5DC00086D86 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -243,6 +244,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.mishimay.AsyncKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -260,6 +262,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.mishimay.AsyncKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
