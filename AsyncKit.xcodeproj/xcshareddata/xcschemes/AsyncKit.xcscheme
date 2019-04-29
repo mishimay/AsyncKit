@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0720"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4D3EF5B81C39F96B00297E92"
+               BlueprintIdentifier = "6CF603151C3AB5DC00086D86"
                BuildableName = "AsyncKit.framework"
                BlueprintName = "AsyncKit"
                ReferencedContainer = "container:AsyncKit.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4D3EF5B81C39F96B00297E92"
+            BlueprintIdentifier = "6CF603151C3AB5DC00086D86"
             BuildableName = "AsyncKit.framework"
             BlueprintName = "AsyncKit"
             ReferencedContainer = "container:AsyncKit.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4D3EF5B81C39F96B00297E92"
+            BlueprintIdentifier = "6CF603151C3AB5DC00086D86"
             BuildableName = "AsyncKit.framework"
             BlueprintName = "AsyncKit"
             ReferencedContainer = "container:AsyncKit.xcodeproj">
