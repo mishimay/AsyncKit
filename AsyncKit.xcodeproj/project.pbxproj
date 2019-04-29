@@ -106,6 +106,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 4D3EF5AF1C39F96B00297E92;
@@ -244,6 +245,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.mishimay.AsyncKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -261,6 +263,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.mishimay.AsyncKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
