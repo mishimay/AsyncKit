@@ -33,7 +33,7 @@ public struct AsyncKit<T, U> {
         }
 
         group.notify(queue: .main) {
-            completion(.success(successObjects.flatMap { $0 }))
+            completion(.success(successObjects.compactMap { $0 }))
         }
     }
 
